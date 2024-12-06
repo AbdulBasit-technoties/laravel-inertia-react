@@ -5,9 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Post;
+use App\Http\Resources\PostResource;
+use App\Http\Requests\StorePostRequest;
+
 class PostController extends Controller
 {
     public function index() {
-        return Inertia::render('Posts/Index');
+        $posts = Post::with('user')->latest()->get();
+        $now = now();
+
+        return Inertia::render('Posts/Index', [
+            'posts'=> PostResource::collection($posts),
+            'now' => $now,
+        ]);
+    }
+    
+    public function show($id) {
+        $post = Post::findOrFail($id);
+    }
+    public function store(StorePostRequest $request) {
+        sleep(3);
+        auth()->user()->posts()->create($request->validated());
+        return redirect()->route('posts.index')->with('status', 'Post created successfully!');
     }
 }
