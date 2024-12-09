@@ -35,6 +35,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'greeting' => 'Hello World!',
+            'message' => $request->session()->get('message'),
         ];
     }
 }
