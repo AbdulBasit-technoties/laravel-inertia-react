@@ -12,12 +12,8 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-<<<<<<< Updated upstream
         abort(403);
-        return auth()->check();
-=======
         return auth()->check() && Gate::allows("create",Post::class);
->>>>>>> Stashed changes
     }
 
     /**
