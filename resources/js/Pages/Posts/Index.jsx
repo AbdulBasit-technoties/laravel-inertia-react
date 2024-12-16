@@ -96,7 +96,7 @@ export default function Index({ posts, now, greeting,message }) {
                     </div>
                     {posts.data.map((post) => {
                         return (
-                            <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                            <div key={post.id} className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                                 <div
                                     key={post.id}
                                     className=" rounded-lg text-gray-900 m-3 p-2"
