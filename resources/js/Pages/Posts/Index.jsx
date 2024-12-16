@@ -1,31 +1,18 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, router, Link, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
 
-export default function Index({ posts, now, greeting,message }) {
+export default function Index({ posts, now,message }) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm("StorePost",{
             body: "",
         });
         const page = usePage();
-        useEffect( () => {
-            if (page?.props?.message?.body) {
-                toast(page.props.message.body,{
-                    type: page.props.message.type,
-                    position: "top-right"
-                })
-            }
-                
-        }, [page.props.message])
+        
         function submit(e) {
             e.preventDefault();
             post(route("posts.store"), {
                 onSuccess: () => {
                     reset("body");
-                    // toast.success("Post Created Successfully!", {
-                    //     position: "top-right"
-                    // });
                 },
             });
         }
@@ -51,8 +38,7 @@ export default function Index({ posts, now, greeting,message }) {
 
             <div className="py-12">
                 <div className="mx-auto max-w-3xl sm:px-6 lg:px-8 space-y-3">
-                    {greeting}
-                    <form
+                    {page.props.can.post_create && (<form
                         onSubmit={submit}
                         className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6"
                     >
@@ -81,7 +67,7 @@ export default function Index({ posts, now, greeting,message }) {
                         >
                             Post
                         </button>
-                    </form>
+                    </form>)}
                     <div className="py-3 flex justify-center">
                         <Link
                             href={route("posts.index")}

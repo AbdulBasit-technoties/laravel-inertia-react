@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user,
             ],
             'greeting' => 'Hello World!',
+<<<<<<< Updated upstream
             'message' => collect(Arr::only($request->session()->all(),['success','error']))->mapWithKeys(
                 function($body,$key){
                     return [
@@ -48,6 +49,11 @@ class HandleInertiaRequests extends Middleware
             ),
             'can' => [
                 "post_create" => $user && $user->can('create',Post::class)
+=======
+            'message' => $request->session()->get('message'),
+            'can' => [
+                'post_create' => auth()->user()->can('create',Post::class),
+>>>>>>> Stashed changes
             ],
         ];
     }

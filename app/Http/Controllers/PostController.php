@@ -25,8 +25,17 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
     }
     public function store(StorePostRequest $request) {
+<<<<<<< Updated upstream
         sleep(3);
         auth()->user()->posts()->create($request->validated());
         return redirect()->route('posts.index')->with('error','Post created successfully!',);
+=======
+        // sleep(3);
+        // auth()->user()->posts()->create($request->validated());
+        return redirect()->route('posts.index')->with('message',[
+            'type' => 'success',
+            'body' =>  'Post created successfully!',
+        ]);
+>>>>>>> Stashed changes
     }
 }
